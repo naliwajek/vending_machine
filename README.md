@@ -27,6 +27,10 @@ select_product_use_case = Buyer::UseCase::SelectProduct.new(
   product_gateway: product_gateway
 )
 
+insert_coin_use_case = Buyer::UseCase::InsertCoin.new(
+  product_gateway: product_gateway
+)
+
 # Machine
 list_products_use_case = Machine::UseCase::ListProducts.new(
   product_gateway: product_gateway
@@ -77,4 +81,18 @@ Oops, we have only two products, stupid us. Let's fix it.
 ```ruby
 select_product_use_case.execute(selected_product_id: 1)
 # => Product selected
+```
+
+We can now pay our 1.50 for Mars:
+
+```ruby
+insert_coin_use_case.execute(coin: '2eur')
+# => Machine::Errors::InvalidCoin
+```
+
+Woah, not that fast. We ain't accepting continental money!
+
+```
+insert_coin_use_case.execute(coin: '1gbp')
+# => Inserted 1gbp coin
 ```
