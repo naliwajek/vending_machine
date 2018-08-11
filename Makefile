@@ -1,9 +1,6 @@
 build:
 	docker-compose build
 
-serve:
-	docker-compose up -d
-
 test: down build
 	./bin/test.sh
 
