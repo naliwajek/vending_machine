@@ -1,6 +1,12 @@
 Ruby project tempalte from [naliwajek/ruby-starter](https://github.com/naliwajek/ruby-starter)
 
-# Commands
+# Vending machine
+
+Business logic for vending machine TDDed in pure Ruby with Clean Architectue flavour.
+
+There's Q&A at the bottom.
+
+## Commands
 
 Build image
 
@@ -26,7 +32,7 @@ And then to get into project console
 bundle console
 ```
 
-# Guided Tour
+## Guided Tour
 
 Also, look into `spec/acceptace` for automated version of this.
 
@@ -68,7 +74,7 @@ check_funds_use_case = Machine::UseCase::CheckFunds.new(
 )
 ```
 
-## Staff needs to setup machine
+### Staff needs to setup machine
 
 Now let's load some change money into a machine:
 
@@ -88,7 +94,7 @@ load_products_use_case.execute(products: products)
 # => Products loaded
 ```
 
-## Buyer can now buy snacks
+### Buyer can now buy snacks
 
 Let's list products in a format readable to humans, not developer i.e non-zero indexed:
 
@@ -129,7 +135,7 @@ insert_coin_use_case.execute(coin: '1gbp')
 # => Inserted 1gbp coin
 ```
 
-## Machine
+### Machine
 
 Well, after each coin is inserted, poor machine will have to do the work of figuring out is this enough to give customer his selected product. 
 
