@@ -1,3 +1,5 @@
+Ruby project tempalte from [naliwajek/ruby-starter](https://github.com/naliwajek/ruby-starter)
+
 # Commands
 
 Build image
@@ -167,7 +169,7 @@ And it will even release the change back to the customer.
 
 **Q**: I don't like how you repeat initialisation of Use Cases everywhere.
 
-**A**: I don't like it either. It breaks DIP (or D in SOLID) in quite uncontrolled ways and a bit of DI between Use Cases and Gateways is not helping to mitigate this 100%. IRL solution would be to use an inversion of control (IoC) container and create, for example, an Use Case Factory with a help of (dry-cotainer)[https://github.com/dry-rb/dry-container] for example.
+**A**: I don't like it either. It breaks DIP (or D in SOLID) in quite uncontrolled ways and a bit of DI between Use Cases and Gateways is not helping to mitigate this 100%. IRL solution would be to use an inversion of control (IoC) container and create, for example, an Use Case Factory with a help of [dry-cotainer](https://github.com/dry-rb/dry-container) for example.
 
 
 **Q**: Where's your delivery mechanism?
@@ -188,3 +190,8 @@ And it will even release the change back to the customer.
 **Q**: This project lacks...
 
 **A**: Thousands of things. Rubocop being one of them. Docker should be `privileged: true` mode or if you run your CI/CD, like Jenkins or GitLab, itself in Docker, it will blow up. Factories mentioned in question above are another thing. There's also no mutation testing. And, well, repositories are plain old Ruby objects with class variables because I didn't want to spin up a whole new database container with Docker.
+
+
+**Q**: How about...
+
+**A**: I'm pretty sure there's more but it's weekend. I'm going to walk in the forest. Cheers.
