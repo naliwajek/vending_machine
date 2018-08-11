@@ -35,6 +35,11 @@ insert_coin_use_case = Buyer::UseCase::InsertCoin.new(
 list_products_use_case = Machine::UseCase::ListProducts.new(
   product_gateway: product_gateway
 )
+
+check_funds_use_case = Machine::UseCase::CheckFunds.new(
+  change_gateway: change_gateway,
+  product_gateway: product_gateway
+)
 ```
 
 ## Staff needs to setup machine
@@ -92,7 +97,33 @@ insert_coin_use_case.execute(coin: '2eur')
 
 Woah, not that fast. We ain't accepting continental money!
 
-```
+```ruby
 insert_coin_use_case.execute(coin: '1gbp')
 # => Inserted 1gbp coin
 ```
+
+## Machine
+
+Well, after each coin is inserted, poor machine will have to do the work of figuring out is this enough to give customer his selected product. 
+
+```ruby
+check_funds_use_case.execute
+# => Waiting for 0.50
+```
+
+Client will eventually pay the rest
+
+```ruby
+insert_coin_use_case.execute(coin: '1gbp')
+# => Inserted 1gbp coin
+```
+
+And machine will check the funds again, this time ready to release a product
+
+```ruby
+check_funds_use_case.execute
+# => Releasing product...
+# => Change: 0.50
+```
+
+And it will even release the change back to the customer.

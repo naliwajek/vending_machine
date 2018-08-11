@@ -9,6 +9,7 @@ describe Buyer::UseCase::InsertCoin do
 
   it 'stores paid in coins in the machine' do
     subject.execute(coin: '2p')
-    expect(change_gateway.paid_in_total).to eq(0.02)
+    subject.execute(coin: '2p')
+    expect(change_gateway.paid_in_total).to eq(0.04)
   end
 end

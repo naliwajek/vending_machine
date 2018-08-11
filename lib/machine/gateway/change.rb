@@ -21,7 +21,7 @@ module Machine
         paid_in.each do |k, v|
           sum += denomination_to_float[k] * v
         end
-        
+
         sum
       end
 
