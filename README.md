@@ -157,14 +157,14 @@ And it will even release the change back to the customer.
 
 ## Q&A
 
-**Q**: Where's this weird directory structure?
+**Q**: What's this weird directory structure?
 
 **A**: It's Clean Architecture. You can see several _actors_ in `lib/` directory. Use Cases are pretty abstract business units, asking concrete implementations for operating on data.
 
 
 **Q**: Your domain objects, repositories and presenters are not tested!
 
-**A**: They are implicitly tested by Use Cases and Gateways. Try changing them and see if it will break tests. Of course, it's weekend and I just want to go visit Kew Gardens but there's a chance there are no undetectable changes to be made.
+**A**: They are implicitly tested by Use Cases and Gateways. Try changing them and see if it will break tests.
 
 
 **Q**: I don't like how you repeat initialisation of Use Cases everywhere.
