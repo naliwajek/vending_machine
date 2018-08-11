@@ -156,22 +156,35 @@ And it will even release the change back to the customer.
 ## Q&A
 
 **Q**: Where's this weird directory structure?
+
 **A**: It's Clean Architecture. You can see several _actors_ in `lib/` directory. Use Cases are pretty abstract business units, asking concrete implementations for operating on data.
 
+
 **Q**: Your domain objects, repositories and presenters are not tested!
+
 **A**: They are implicitly tested by Use Cases and Gateways. Try changing them and see if it will break tests. Of course, it's weekend and I just want to go visit Kew Gardens but there's a chance there are no undetectable changes to be made.
 
+
 **Q**: I don't like how you repeat initialisation of Use Cases everywhere.
+
 **A**: I don't like it either. It breaks DIP (or D in SOLID) in quite uncontrolled ways and a bit of DI between Use Cases and Gateways is not helping to mitigate this 100%. IRL solution would be to use an inversion of control (IoC) container and create, for example, an Use Case Factory with a help of (dry-cotainer)[https://github.com/dry-rb/dry-container] for example.
 
+
 **Q**: Where's your delivery mechanism?
+
 **A**: Since delivery mechanism like Rails MVC, HTTP REST API, RPC, (web)sockets, Microsoft Excel or whatever really is just an implementation detail, I didn't implement any. Codebase should be flexible enough to be put into any DM you may want.
 
+
 **Q**: What if I want to move vending machine to different country?
+
 **A**: Then you should introduce multiple different gateways. Probably one per country. Either way, current Use Cases will allow you to inject them willy-nilly as you wish.
 
+
 **Q**: What if I want to send list of products to API?
+
 **A**: Same as above. Introduce new presenter with the same interface (just `.present` method) and DI it.
 
+
 **Q**: This project lacks...
+
 **A**: Thousands of things. Rubocop being one of them. Docker should be `privileged: true` mode or if you run your CI/CD, like Jenkins or GitLab, itself in Docker, it will blow up. Factories mentioned in question above are another thing. There's also no mutation testing. And, well, repositories are plain old Ruby objects with class variables because I didn't want to spin up a whole new database container with Docker.
