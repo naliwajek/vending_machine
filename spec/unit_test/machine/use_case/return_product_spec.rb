@@ -16,4 +16,13 @@ describe Machine::UseCase::ReturnProduct do
       expect { subject.execute }.to raise_error(Machine::Errors::NoProductSelected)
     end
   end
+
+  context 'when product is selected' do
+    it 'returns releasing status' do
+      load_products.execute(products: products)
+      select_product.execute(selected_product_id: 1)
+
+      expect(subject.execute).to eq({ status: 'Releasing product...' })
+    end
+  end
 end

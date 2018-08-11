@@ -11,7 +11,12 @@ module Machine
         price = product_gateway.selected_product.price
 
         if paid_in >= price
-          Machine::UseCase::ReturnProduct.new(product_gateway: product_gateway).execute
+          return_product = Machine::UseCase::ReturnProduct.new(product_gateway: product_gateway).execute
+          return_change = Machine::UseCase::ReturnChange
+            .new(change_gateway: change_gateway)
+            .execute(change_amount: paid_in - price)
+
+          { status: return_product[:status] + "\n" + return_change[:status] }
         else
           { status: "Waiting for #{'%.2f' % (paid_in - price).abs}"}
         end

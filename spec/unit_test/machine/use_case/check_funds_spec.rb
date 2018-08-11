@@ -41,8 +41,23 @@ describe Machine::UseCase::CheckFunds do
       insert_coin.execute(coin: '1gbp')
 
       expect_any_instance_of(Machine::UseCase::ReturnProduct).to receive(:execute)
+        .and_return({ status: 'double' })
+      expect_any_instance_of(Machine::UseCase::ReturnChange).to receive(:execute)
+        .and_return({ status: 'double' })
 
       subject.execute
+    end
+
+    it 'returns a status' do
+      load_products.execute(products: products)
+      select_product.execute(selected_product_id: 1)
+      insert_coin.execute(coin: '1gbp')
+      insert_coin.execute(coin: '50p')
+      insert_coin.execute(coin: '10p')
+
+      expect(subject.execute).to eq({
+        status: "Releasing product...\nChange: 0.10"
+      })
     end
   end
 end
