@@ -9,11 +9,11 @@ describe Machine::Gateway::Change do
     end
 
     it "allows to pay with #{coin} coin" do
-      expect(subject.paid_in[coin]).to eq(0)
+      expect(subject.change[coin]).to eq(0)
 
       subject.pay(coin)
 
-      expect(subject.paid_in[coin]).to eq(1)
+      expect(subject.change[coin]).to eq(1)
     end
   end
 

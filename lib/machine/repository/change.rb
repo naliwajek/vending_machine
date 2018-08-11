@@ -1,6 +1,7 @@
 module Machine
   module Repository
     class Change
+      @@paid_in_total = 0
       @@change = {
         '1p' => 0,
         '2p' => 0,
@@ -12,23 +13,8 @@ module Machine
         '2gbp' => 0,
       }
 
-      @@paid_in = {
-        '1p' => 0,
-        '2p' => 0,
-        '5p' => 0,
-        '10p' => 0,
-        '20p' => 0,
-        '50p' => 0,
-        '1gp' => 0,
-        '2gp' => 0,
-      }
-
       def self.change
         @@change
-      end
-
-      def self.paid_in
-        @@paid_in
       end
 
       def self.add(coin)
@@ -36,10 +22,16 @@ module Machine
       end
 
       def self.pay(coin)
-        @@paid_in[coin] += 1
+        @@change[coin] += 1
+        @@paid_in_total += denomination_to_float[coin]
+      end
+
+      def self.paid_in_total
+        @@paid_in_total
       end
 
       def self.clear!
+        @@paid_in_total = 0
         @@change = {
           '1p' => 0,
           '2p' => 0,
@@ -50,16 +42,18 @@ module Machine
           '1gbp' => 0,
           '2gbp' => 0,
         }
+      end
 
-        @@paid_in = {
-          '1p' => 0,
-          '2p' => 0,
-          '5p' => 0,
-          '10p' => 0,
-          '20p' => 0,
-          '50p' => 0,
-          '1gbp' => 0,
-          '2gbp' => 0,
+      def self.denomination_to_float
+        {
+          '1p' => 0.01,
+          '2p' => 0.02,
+          '5p' => 0.05,
+          '10p' => 0.10,
+          '20p' => 0.20,
+          '50p' => 0.50,
+          '1gbp' => 1.0,
+          '2gbp' => 2.0
         }
       end
     end

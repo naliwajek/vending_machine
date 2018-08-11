@@ -16,21 +16,11 @@ module Machine
       end
 
       def paid_in_total
-        sum = 0
-
-        paid_in.each do |k, v|
-          sum += denomination_to_float[k] * v
-        end
-
-        sum
+        repository.paid_in_total
       end
 
       def change
         repository.change
-      end
-
-      def paid_in
-        repository.paid_in
       end
 
       private
