@@ -20,6 +20,14 @@ module Machine
         @@products << product
       end
 
+      def self.remove_product_at(idx)
+        @@products.delete_at(idx)
+      end
+
+      def self.clear_selected_product_idx!
+        @@selected_product_idx = nil
+      end
+
       def self.clear!
         @@products = []
         @@selected_product_idx = nil

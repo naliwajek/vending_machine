@@ -18,6 +18,8 @@ module Machine
       end
 
       def selected_product
+        return nil if repository.selected_product_idx.nil?
+
         repository.products[repository.selected_product_idx]
       end
 
@@ -29,6 +31,11 @@ module Machine
         raise Machine::Errors::NoSuchProduct if id > count 
 
         repository.set_selected_product(id - 1)
+      end
+
+      def return_product
+        repository.remove_product_at(repository.selected_product_idx)
+        repository.clear_selected_product_idx!
       end
 
       private

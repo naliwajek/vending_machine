@@ -6,6 +6,13 @@ module Machine
       end
 
       def execute
+        if product_gateway.selected_product_idx.nil?
+          raise Machine::Errors::NoProductSelected
+        end
+
+        product_gateway.return_product
+
+        { status: 'Releasing product...' }
       end
 
       private
