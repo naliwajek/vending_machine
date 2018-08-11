@@ -9,6 +9,10 @@ module Machine
         repository.add(product)
       end
 
+      def products
+        repository.products
+      end
+
       def count
         repository.products.count
       end

@@ -12,6 +12,8 @@ require_all 'lib'
 change_gateway = Machine::Gateway::Change.new
 product_gateway = Machine::Gateway::Product.new
 
+products_presenter_for_humans = Buyer::Presenter::Products.new
+
 # Staff actor
 load_change_use_case = Staff::UseCase::LoadChange.new(
   change_gateway: change_gateway
@@ -24,7 +26,14 @@ load_products_use_case = Staff::UseCase::LoadProducts.new(
 select_product_use_case = Buyer::UseCase::SelectProduct.new(
   product_gateway: product_gateway
 )
+
+# Machine
+list_products_use_case = Machine::UseCase::ListProducts.new(
+  product_gateway: product_gateway
+)
 ```
+
+## Staff needs to setup machine
 
 Now let's load some change money into a machine:
 
@@ -43,6 +52,19 @@ products = [ { name: 'Mars', price: 1.50 }, { name: 'Milkway', price: 1.0 }]
 load_products_use_case.execute(products: products)
 ```
 
+## Buyer can now buy snacks
+
+Let's list products in a format readable to humans, not developer i.e non-zero indexed:
+
+```ruby
+list_products_use_cae.execute(
+  presenter: products_presenter_for_humans
+)
+# => Select number to choose product
+# => [1] Mars for only 1.50!
+# => [2] Milkway for only 1.00!
+```
+
 As a buyer I can now select a product:
 
 ```ruby
@@ -50,7 +72,7 @@ select_product_use_case.execute(selected_product_id: 3)
 # => Machine::Errors::NoSuchProduct raised!
 ```
 
-Oops, we have only two products... let's be more careful.
+Oops, we have only two products, stupid us. Let's fix it.
 
 ```ruby
 select_product_use_case.execute(selected_product_id: 1)

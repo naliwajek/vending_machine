@@ -8,6 +8,15 @@ describe Machine::Gateway::Product do
     expect(subject.count).to eq(2)
   end
 
+  it 'returns all the products' do
+    load_products.execute(products: products)
+
+    result = subject.products
+
+    expect(result[0].name).to eq('Mars')
+    expect(result[1].name).to eq('Milkway')
+  end
+
   it 'allows to select a product by non-zero index' do
     load_products.execute(products: products)
 
