@@ -19,6 +19,11 @@ load_change_use_case = Staff::UseCase::LoadChange.new(
 load_products_use_case = Staff::UseCase::LoadProducts.new(
   product_gateway: product_gateway
 )
+
+# Buyer
+select_product_use_case = Buyer::UseCase::SelectProduct.new(
+  product_gateway: product_gateway
+)
 ```
 
 Now let's load some change money into a machine:
@@ -36,4 +41,18 @@ We should also load some products:
 products = [ { name: 'Mars', price: 1.50 }, { name: 'Milkway', price: 1.0 }]
 
 load_products_use_case.execute(products: products)
+```
+
+As a buyer I can now select a product:
+
+```ruby
+select_product_use_case.execute(selected_product_id: 3)
+# => Machine::Errors::NoSuchProduct raised!
+```
+
+Oops, we have only two products... let's be more careful.
+
+```ruby
+select_product_use_case.execute(selected_product_id: 1)
+# => Product selected
 ```

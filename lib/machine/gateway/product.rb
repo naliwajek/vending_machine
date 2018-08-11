@@ -13,6 +13,20 @@ module Machine
         repository.products.count
       end
 
+      def selected_product
+        repository.products[repository.selected_product_idx]
+      end
+
+      def selected_product_idx
+        repository.selected_product_idx
+      end
+
+      def select_product(id:)
+        raise Machine::Errors::NoSuchProduct if id > count 
+
+        repository.set_selected_product(id - 1)
+      end
+
       private
 
       def repository
