@@ -23,23 +23,28 @@ module Machine
         repository.change
       end
 
+      def get_change_back(amount_of_change)
+        amount = 0
+
+        VALID_COINS.reverse.each do |c|
+          while change[c] > 0
+            value = repository.denomination_to_float[c]
+            break if amount + value > amount_of_change
+
+            amount += value
+            repository.remove(c)
+          end
+
+          next
+        end
+        
+        amount
+      end
+
       private
 
       def repository
         Machine::Repository::Change
-      end
-
-      def denomination_to_float
-        {
-          '1p' => 0.01,
-          '2p' => 0.02,
-          '5p' => 0.05,
-          '10p' => 0.10,
-          '20p' => 0.20,
-          '50p' => 0.50,
-          '1gbp' => 1.0,
-          '2gbp' => 2.0
-        }
       end
     end
   end

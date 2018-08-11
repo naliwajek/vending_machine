@@ -26,6 +26,10 @@ module Machine
         @@paid_in_total += denomination_to_float[coin]
       end
 
+      def self.remove(coin)
+        @@change[coin] -= 1
+      end
+
       def self.paid_in_total
         @@paid_in_total
       end

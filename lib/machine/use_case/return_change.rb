@@ -6,9 +6,9 @@ module Machine
       end
 
       def execute(change_amount:)
-        amount = change_gateway.get_change(change_amount)
+        amount = change_gateway.get_change_back(change_amount)
 
-        { status: "Change: #{'%.2f' % amount}"}
+        { status: "Change: #{'%.2f' % amount}" }
       end
 
       private
